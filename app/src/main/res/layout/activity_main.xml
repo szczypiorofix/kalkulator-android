@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.piotrek.kalkulator.MainActivity"
-    android:background="#2b2929">
+    android:background="@color/activity_background">
 
     <LinearLayout
         android:orientation="vertical"
@@ -22,13 +22,13 @@
 
         <TextView
             android:layout_width="fill_parent"
-            android:layout_height="60dp"
+            android:layout_height="58dp"
             android:id="@+id/eWynik"
             android:textSize="28sp"
             android:textStyle="bold"
             android:text="@string/eWynik"
             android:gravity="center|right"
-            android:background="#e2e1e1"
+            android:background="@drawable/textfield"
             android:textColor="#000000"
             android:padding="5dp"
             android:maxLength="15" />
@@ -37,10 +37,10 @@
             android:layout_height="wrap_content"
             android:id="@+id/eError"
             android:layout_gravity="center_horizontal"
-            android:textSize="24sp"
+            android:textSize="22sp"
             android:textStyle="bold"
             android:textColor="#ffffff"
-            android:gravity="center|right" />
+            android:gravity="center_vertical|center" />
         <GridLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
