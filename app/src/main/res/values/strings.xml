@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Kalkulator</string>
+    <string name="bs1">1</string>
+    <string name="bs2">2</string>
+    <string name="bs3">3</string>
+    <string name="bs4">4</string>
+    <string name="bs5">5</string>
+    <string name="bs6">6</string>
+    <string name="bs7">7</string>
+    <string name="bs8">8</string>
+    <string name="bs9">9</string>
+    <string name="bs0">0</string>
+    <string name="bsC">C</string>
+    <string name="bsBack">\u003C-</string>
+    <string name="bsSqrt">\u221A</string>
+    <string name="bsPomnoz">\u00D7</string>
+    <string name="bsPodziel">\u00F7</string>
+    <string name="bsDodaj">+</string>
+    <string name="bsOdejmij">-</string>
+    <string name="bsRownaSie">=</string>
+    <string name="bsPrzecinek">.</string>
+    <string name="bsPlusMinus">+/-</string>
+    <string name="eWynik"></string>
+    <string name="komunikatBledu">Błąd!!! Dzielenie przez 0 !</string>
+</resources>
