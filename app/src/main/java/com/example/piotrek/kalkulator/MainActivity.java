@@ -1,6 +1,8 @@
 package com.example.piotrek.kalkulator;
 
 
+//import android.graphics.drawable.Drawable;
+//import android.graphics.drawable.ScaleDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -10,6 +12,9 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 
+//import static android.R.attr.scaleHeight;
+//import static android.R.attr.scaleWidth;
+
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -17,7 +22,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btnC, btnBack;
     TextView wynik, eBlad;
 
-    private int dzialanie = 0; // 1 -dodawanie, 2-odejmowanie, 3-mnozenie, 4-dzielenie
+    private enum Dzialanie {
+        nic, Dodawanie, Odejmowanie, Mnozenie, Dzielenie
+    }
+    private Dzialanie dzialanie;
     private MathContext mc;
     private BigDecimal wP = new BigDecimal("0"), wJP = new BigDecimal("0"), wA = new BigDecimal("0");
 
@@ -74,6 +82,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnPrzecinek.setOnClickListener(this);
         btnBack.setOnClickListener(this);
         btnPlusMinus.setOnClickListener(this);
+
+        wynik.setText("0");
+        dzialanie = Dzialanie.nic;
+        //Drawable drawable = getResources().getDrawable(R.drawable.calcbutton);
+        //drawable.setBounds(0, 0, (int)(drawable.getIntrinsicWidth()*0.5),
+        //        (int)(drawable.getIntrinsicHeight()*0.5));
+        //drawable.setBounds(0, 0, (int)(drawable.getIntrinsicWidth()*0.4),
+         //       (int)(drawable.getIntrinsicHeight()*0.4));
+        //ScaleDrawable sd = new ScaleDrawable(drawable, 0, scaleWidth, scaleHeight);
+        //Button btnC = (Button) findViewById(R.id.bC);
+        //btnC.setCompoundDrawables(sd.getDrawable(), null, null, null);
     }
 
     @Override
@@ -189,7 +208,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             wA = new BigDecimal("0");
             wP = new BigDecimal("0");
             wJP = new BigDecimal("0");
-            dzialanie = 0;
+            dzialanie = Dzialanie.nic;
             przecinek = false;
             poprzecinku = false;
             odNowa = true;
@@ -259,29 +278,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if ((x.equals("+")) || (x.equals("-")) || (x.equals("\u00D7")) || (x.equals("\u00F7")))
         {
-            if ((dzialanie > 0) && (!rownanie))
+            if ((dzialanie != Dzialanie.nic) && (!rownanie))
             {
                 switch(dzialanie)
                 {
-                    case 1: {
+                    case Dodawanie: {
                         wA = wP.add(wJP).stripTrailingZeros();
                         wynikS = String.valueOf(wA.toPlainString());
                         wP = wA;
                         break;
                     }
-                    case 2: {
+                    case Odejmowanie: {
                         wA = wJP.subtract(wP).stripTrailingZeros();
                         wynikS = String.valueOf(wA.toPlainString());
                         wP = wA;
                         break;
                     }
-                    case 3: {
+                    case Mnozenie: {
                         wA = wJP.multiply(wP).stripTrailingZeros();
                         wynikS = String.valueOf(wA.toPlainString());
                         wP = wA;
                         break;
                     }
-                    case 4: {
+                    case Dzielenie: {
                         if (wA.compareTo(BigDecimal.valueOf(0)) != 0)
                         {
                             wA = wJP.divide(wP, 20, RoundingMode.HALF_UP).stripTrailingZeros();
@@ -304,10 +323,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 wJP = wA;
                 wA = new BigDecimal("0");
             }
-            if (x.equals("+")) dzialanie = 1;
-            else if (x.equals("-")) dzialanie = 2;
-            else if (x.equals("\u00D7")) dzialanie = 3;
-            else if (x.equals("\u00F7")) dzialanie = 4;
+            if (x.equals("+")) dzialanie = Dzialanie.Dodawanie;
+            else if (x.equals("-")) dzialanie = Dzialanie.Odejmowanie;
+            else if (x.equals("\u00D7")) dzialanie = Dzialanie.Mnozenie;
+            else if (x.equals("\u00F7")) dzialanie = Dzialanie.Dzielenie;
             odNowa = true;
             poprzecinku = false;
             przecinek = false;
@@ -322,32 +341,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             pierw = true;
             przecinek = false;
             poprzecinku=false;
-            dzialanie = 0;
+            dzialanie = Dzialanie.nic;
         }
 
-        if ((x.equals("=")) && (dzialanie > 0))
+        if ((x.equals("=")) && (dzialanie != Dzialanie.nic))
         {
             odNowa = true;
             switch (dzialanie) {
-                case 1: {
+                case Dodawanie: {
                     wA = wP.add(wJP).stripTrailingZeros();
                     wynikS = String.valueOf(wA.toPlainString());
                     wJP = wA;
                     break;
                 }
-                case 2: {
+                case Odejmowanie: {
                     wA = wJP.subtract(wP).stripTrailingZeros();
                     wynikS = String.valueOf(wA.toPlainString());
                     wJP = wA;
                     break;
                 }
-                case 3: {
+                case Mnozenie: {
                     wA = wJP.multiply(wP).stripTrailingZeros();
                     wynikS = String.valueOf(wA.toPlainString());
                     wJP = wA;
                     break;
                 }
-                case 4: {
+                case Dzielenie: {
                     if (wA.compareTo(BigDecimal.valueOf(0)) != 0)
                     {
                         wA = wJP.divide(wP, 20, RoundingMode.HALF_UP).stripTrailingZeros();
