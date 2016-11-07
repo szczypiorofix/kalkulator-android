@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -29,6 +30,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final BigDecimal TWO = BigDecimal.valueOf(2L);
     private String wynikS = "0";
     private boolean przecinek = false, poprzecinku = false, rownanie = false, pierw = false, odNowa = true;
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case 0:
+                // do whatever
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
