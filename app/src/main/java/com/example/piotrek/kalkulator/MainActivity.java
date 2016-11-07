@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Dzialanie dzialanie;
     private BigDecimal wP = new BigDecimal("0"), wJP = new BigDecimal("0"), wA = new BigDecimal("0");
-
     private static final BigDecimal TWO = BigDecimal.valueOf(2L);
     private String wynikS = "0";
     private boolean przecinek = false, poprzecinku = false, rownanie = false, pierw = false, odNowa = true;
@@ -194,7 +193,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             }
         }
-
         wynik.setText(wynikS);
     }
 
@@ -396,13 +394,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 }
                 case Dzielenie: {
-                    //wA.stripTrailingZeros();
                     if (wA.compareTo(BigDecimal.valueOf(0)) != 0)
                     {
                         if (wJP.compareTo(BigDecimal.valueOf(0)) == 0) {
                             wA = wJP.divide(wP, 0, RoundingMode.HALF_UP).stripTrailingZeros();
                         } else wA = wJP.divide(wP, 20, RoundingMode.HALF_UP).stripTrailingZeros();
-
                         wynikS = String.valueOf(wA.toPlainString());
                         wJP = wA;
                     }
@@ -419,14 +415,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (!blad) wynik.setText(wynikS);
         else {
             LayoutInflater inflater = getLayoutInflater();
-            View layout = inflater.inflate(R.layout.custom_toast,
-                    (ViewGroup) findViewById(R.id.custom_toast_container));
-
-            TextView text = (TextView) layout.findViewById(R.id.text);
-            //text.setText(R.string.komunikatBledu);
-
+            View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_container));
             Toast toast = new Toast(getApplicationContext());
-            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+            toast.setGravity(Gravity.BOTTOM, 0, 40);
             toast.setDuration(Toast.LENGTH_LONG);
             toast.setView(layout);
             toast.show();

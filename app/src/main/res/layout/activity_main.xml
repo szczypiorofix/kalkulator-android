@@ -29,17 +29,12 @@
             android:gravity="center|right"
             android:textColor="@color/textcolor"
             android:maxLength="15"
+            android:layout_marginBottom="15dp"
             android:paddingRight="15dp"
             android:paddingLeft="5dp"
             android:background="@color/buttonDefaultColor"
             android:paddingTop="10dp"
             android:paddingBottom="10dp" />
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="15dp">
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -337,7 +332,4 @@
                     android:layout_marginLeft="@dimen/button_layout_margin" />
             </LinearLayout>
         </LinearLayout>
-
-    </LinearLayout>
-
 </RelativeLayout>

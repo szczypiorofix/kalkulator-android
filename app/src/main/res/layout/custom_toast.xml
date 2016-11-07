@@ -6,13 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="8dp"
-    android:background="#DAAA"
+    android:background="@color/toastbgcolor"
     android:layout_centerVertical="false">
 
     <ImageView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/warning"
+        android:contentDescription="@string/app_name"
         android:id="@+id/imageView"
         android:layout_weight="1" />
 
