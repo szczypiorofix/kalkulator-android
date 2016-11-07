@@ -97,6 +97,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+
+        btnC.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
+        btn0.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
+        btn1.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
+        btn2.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
+        btn3.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
+        btn4.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
+        btn5.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
+        btn6.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
+        btn7.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
+        btn8.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
+        btn9.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
+
         eBlad.setText("");
         switch (v.getId()) {
             case R.id.b0: {
@@ -323,10 +336,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 wJP = wA;
                 wA = new BigDecimal("0");
             }
-            if (x.equals("+")) dzialanie = Dzialanie.Dodawanie;
-            else if (x.equals("-")) dzialanie = Dzialanie.Odejmowanie;
-            else if (x.equals("\u00D7")) dzialanie = Dzialanie.Mnozenie;
-            else if (x.equals("\u00F7")) dzialanie = Dzialanie.Dzielenie;
+
+            switch (x)
+            {
+                case "+":
+                    dzialanie = Dzialanie.Dodawanie;
+                    break;
+                case "-":
+                    dzialanie = Dzialanie.Odejmowanie;
+                    break;
+                case "\u00D7":
+                    dzialanie = Dzialanie.Mnozenie;
+                    break;
+                case "\u00F7":
+                    dzialanie = Dzialanie.Dzielenie;
+                    break;
+            }
+
+            //if (x.equals("+")) dzialanie = Dzialanie.Dodawanie;
+            //else if (x.equals("-")) dzialanie = Dzialanie.Odejmowanie;
+            //else if (x.equals("\u00D7")) dzialanie = Dzialanie.Mnozenie;
+            //else if (x.equals("\u00F7")) dzialanie = Dzialanie.Dzielenie;
+
             odNowa = true;
             poprzecinku = false;
             przecinek = false;
