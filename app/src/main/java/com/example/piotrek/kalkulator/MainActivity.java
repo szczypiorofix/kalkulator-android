@@ -1,8 +1,6 @@
 package com.example.piotrek.kalkulator;
 
 
-//import android.graphics.drawable.Drawable;
-//import android.graphics.drawable.ScaleDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -12,8 +10,6 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 
-//import static android.R.attr.scaleHeight;
-//import static android.R.attr.scaleWidth;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -98,17 +94,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
 
-        btnC.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
-        btn0.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
-        btn1.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
-        btn2.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
-        btn3.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
-        btn4.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
-        btn5.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
-        btn6.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
-        btn7.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
-        btn8.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
-        btn9.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
+        //btnC.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
+        //btn0.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
+        //btn1.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
+        //btn2.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
+        //btn3.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
+        //btn4.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
+        //btn5.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
+        //btn6.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
+        //btn7.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
+        //btn8.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
+        //btn9.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
 
         eBlad.setText("");
         switch (v.getId()) {
@@ -251,6 +247,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (x.equals("0") || x.equals("1") || x.equals("2") || x.equals("3") || x.equals("4") || x.equals("5") || x.equals("6") || x.equals("7") || x.equals("8") || x.equals("9"))
         {
+            if (wynikS.startsWith("0") && !poprzecinku) {
+                wynikS="";
+            }
 
             if ((przecinek) && (wynikS.length() == 0))
             {
@@ -398,9 +397,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 }
                 case Dzielenie: {
+                    //wA.stripTrailingZeros();
                     if (wA.compareTo(BigDecimal.valueOf(0)) != 0)
                     {
-                        wA = wJP.divide(wP, 20, RoundingMode.HALF_UP).stripTrailingZeros();
+                        if (wJP.compareTo(BigDecimal.valueOf(0)) == 0) {
+                            wA = wJP.divide(wP, 0, RoundingMode.HALF_UP).stripTrailingZeros();
+                        } else wA = wJP.divide(wP, 20, RoundingMode.HALF_UP).stripTrailingZeros();
+
                         wynikS = String.valueOf(wA.toPlainString());
                         wJP = wA;
                     }
