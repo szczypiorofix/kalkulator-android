@@ -20,6 +20,6 @@
     <string name="bsRownaSie">=</string>
     <string name="bsPrzecinek">.</string>
     <string name="bsPlusMinus">+/-</string>
-    <string name="eWynik"></string>
+    <string name="eWynik">0</string>
     <string name="komunikatBledu">Błąd!!! Dzielenie przez 0 !</string>
 </resources>

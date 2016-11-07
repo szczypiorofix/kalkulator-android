@@ -3,9 +3,13 @@ package com.example.piotrek.kalkulator;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
@@ -14,25 +18,26 @@ import java.math.RoundingMode;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button btnDodaj, btnOdejmij, btnPomnoz, btnPodziel, btnRownaSie, btnPierwiastek, btnPrzecinek, btnPlusMinus;
-    Button btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btnC, btnBack;
-    TextView wynik, eBlad;
+    private TextView wynik;
 
     private enum Dzialanie {
         nic, Dodawanie, Odejmowanie, Mnozenie, Dzielenie
     }
+
     private Dzialanie dzialanie;
-    private MathContext mc;
     private BigDecimal wP = new BigDecimal("0"), wJP = new BigDecimal("0"), wA = new BigDecimal("0");
 
     private static final BigDecimal TWO = BigDecimal.valueOf(2L);
     private String wynikS = "0";
-    private boolean przecinek = false, poprzecinku = false, rownanie = false, pierw = false, blad=false, odNowa = true;
+    private boolean przecinek = false, poprzecinku = false, rownanie = false, pierw = false, odNowa = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Button btnDodaj, btnOdejmij, btnPomnoz, btnPodziel, btnRownaSie, btnPierwiastek, btnPrzecinek, btnPlusMinus;
+        Button btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btnC, btnBack;
 
         btn0 = (Button) findViewById(R.id.b0);
         btn1 = (Button) findViewById(R.id.b1);
@@ -57,7 +62,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnPlusMinus = (Button) findViewById(R.id.bPlusMinus);
 
         wynik = (TextView) findViewById(R.id.eWynik);
-        eBlad = (TextView) findViewById(R.id.eError);
+
+        assert btn0 != null;
+        assert btn1 != null;
+        assert btn2 != null;
+        assert btn3 != null;
+        assert btn4 != null;
+        assert btn5 != null;
+        assert btn6 != null;
+        assert btn7 != null;
+        assert btn8 != null;
+        assert btn9 != null;
+        assert btnC != null;
+        assert btnDodaj != null;
+        assert btnOdejmij != null;
+        assert btnPodziel != null;
+        assert btnPomnoz != null;
+        assert btnRownaSie != null;
+        assert btnPierwiastek != null;
+        assert btnBack != null;
+        assert btnPlusMinus != null;
+        assert btnPrzecinek != null;
+
         btn0.setOnClickListener(this);
         btn1.setOnClickListener(this);
         btn2.setOnClickListener(this);
@@ -81,32 +107,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         wynik.setText("0");
         dzialanie = Dzialanie.nic;
-        //Drawable drawable = getResources().getDrawable(R.drawable.calcbutton);
-        //drawable.setBounds(0, 0, (int)(drawable.getIntrinsicWidth()*0.5),
-        //        (int)(drawable.getIntrinsicHeight()*0.5));
-        //drawable.setBounds(0, 0, (int)(drawable.getIntrinsicWidth()*0.4),
-         //       (int)(drawable.getIntrinsicHeight()*0.4));
-        //ScaleDrawable sd = new ScaleDrawable(drawable, 0, scaleWidth, scaleHeight);
-        //Button btnC = (Button) findViewById(R.id.bC);
-        //btnC.setCompoundDrawables(sd.getDrawable(), null, null, null);
     }
 
     @Override
     public void onClick(View v) {
 
-        //btnC.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
-        //btn0.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
-        //btn1.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
-        //btn2.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
-        //btn3.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
-        //btn4.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
-        //btn5.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
-        //btn6.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
-        //btn7.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
-        //btn8.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
-        //btn9.setBackgroundDrawable(getResources().getDrawable(R.drawable.buttonseffects));
-
-        eBlad.setText("");
         switch (v.getId()) {
             case R.id.b0: {
                 policz("0");
@@ -193,7 +198,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         wynik.setText(wynikS);
     }
 
-    public static BigDecimal sqrt(BigDecimal x, MathContext mc) {
+    private static BigDecimal sqrt(BigDecimal x, MathContext mc) {
         BigDecimal g = x.divide(TWO, mc);
         boolean done = false;
         final int maxIterations = mc.getPrecision() + 1;
@@ -208,9 +213,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return g;
     }
 
-    public void policz(String x)
+    private void policz(String x)
     {
-        blad = false;
+        boolean blad = false;
         if (x.equals("C"))
         {
             wynikS = "0";
@@ -351,12 +356,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     dzialanie = Dzialanie.Dzielenie;
                     break;
             }
-
-            //if (x.equals("+")) dzialanie = Dzialanie.Dodawanie;
-            //else if (x.equals("-")) dzialanie = Dzialanie.Odejmowanie;
-            //else if (x.equals("\u00D7")) dzialanie = Dzialanie.Mnozenie;
-            //else if (x.equals("\u00F7")) dzialanie = Dzialanie.Dzielenie;
-
             odNowa = true;
             poprzecinku = false;
             przecinek = false;
@@ -365,7 +364,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (x.equals("\u221A"))
         {
-            mc = new MathContext(20);
+            MathContext mc = new MathContext(20);
             wP = sqrt(wA, mc).stripTrailingZeros();
             wynikS = String.valueOf(wP.toPlainString());
             pierw = true;
@@ -418,6 +417,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         if (!blad) wynik.setText(wynikS);
-        else eBlad.setText(R.string.komunikatBledu);
+        else {
+            LayoutInflater inflater = getLayoutInflater();
+            View layout = inflater.inflate(R.layout.custom_toast,
+                    (ViewGroup) findViewById(R.id.custom_toast_container));
+
+            TextView text = (TextView) layout.findViewById(R.id.text);
+            //text.setText(R.string.komunikatBledu);
+
+            Toast toast = new Toast(getApplicationContext());
+            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+            toast.setDuration(Toast.LENGTH_LONG);
+            toast.setView(layout);
+            toast.show();
+        }
     }
 }
